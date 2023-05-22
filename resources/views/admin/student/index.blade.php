@@ -5,10 +5,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h1>Courses</h1>
+                <h1>Students</h1>
             </div>
             <div class="col-md-6 text-end">
-                <a href="{{ route('course.create') }}" class="btn btn-outline-primary">Add Course</a>
+                <a href="{{ route('student.create') }}" class="btn btn-outline-primary">Add Student</a>
             </div>
         </div>
 
@@ -19,7 +19,9 @@
 
                         @include('partials.flash-messages')
 
-                        @if (count($courses) > 0)
+                        {{-- {{ dump($students) }} --}}
+
+                        @if (count($students) > 0)
                         <table class="table table-bordered m-0">
                             <thead>
                                 <tr>
@@ -31,14 +33,14 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($courses as $course)
+                                @foreach ($students as $student)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $course->name }}</td>
-                                    <td>{{ $course->duration }}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->email }}</td>
                                     <td>
-                                        <a href="{{ route('course.edit', $course) }}" class="btn btn-primary">Edit</a>
-                                        <a href="{{ route('course.delete', $course) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('student.edit', $student) }}" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('student.delete', $student) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

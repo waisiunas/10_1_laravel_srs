@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.course.index', ['courses' => Course::all()]);
+        return view('admin.student.index', ['students' => Student::all()]);
     }
 
     /**
@@ -20,7 +20,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('admin.course.create');
+        return view('admin.student.create');
     }
 
     /**
@@ -30,15 +30,15 @@ class CourseController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'duration' => ['required'],
+            'email' => ['required', 'unique:students,email'],
         ]);
 
         $data = [
             'name' => $request->name,
-            'duration' => $request->duration,
+            'email' => $request->email,
         ];
 
-        $is_created = Course::create($data);
+        $is_created = Student::create($data);
 
         if ($is_created) {
             return back()->with(['success' => 'Magic has been spelled!']);
@@ -50,7 +50,7 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(Student $student)
     {
         //
     }
@@ -58,27 +58,27 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Student $student)
     {
-        return view('admin.course.edit', ['course' => $course]);
+        return view('admin.student.edit', ['student' =>$student]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Student $student)
     {
         $request->validate([
             'name' => ['required'],
-            'duration' => ['required'],
+            'email' => ['required', 'unique:students,email,'. $student->id .',id'],
         ]);
 
         $data = [
             'name' => $request->name,
-            'duration' => $request->duration,
+            'email' => $request->email,
         ];
 
-        $is_updated = $course->update($data);
+        $is_updated = $student->update($data);
 
         if ($is_updated) {
             return back()->with(['success' => 'Magic has been spelled!']);
@@ -90,9 +90,9 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(Student $student)
     {
-        $is_deleted = $course->delete();
+        $is_deleted = $student->delete();
 
         if ($is_deleted) {
             return back()->with(['success' => 'Magic has been spelled!']);
