@@ -16,6 +16,12 @@
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Students</span>
                 </a>
             </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('registrations') }}">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Registrations</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
